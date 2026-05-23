@@ -1,0 +1,326 @@
+你把年轻一代（白领、学生、电竞玩家）的心理拿捏得太准了。现在的年轻人极度反感“传统运营商”那种充满推销、到处是红点广告、长得像2010年网站的App。
+在他们眼里，**界面高级 = 宽带稳定 = 团队靠谱。** 只要让他们觉得这是一个像腾讯云、Apple一样有科技感的“数字生活入口”，不仅能极大地提高续费率（降低退租率），更能让你轻松把 ARPU 值（每用户平均收入）做上去。
+既然你敲定了顶级的互联网科技栈（**Next.js + Tailwind CSS + Framer Motion**），我们这就彻底摒弃死板的原生小程序，直接用这套**大厂工业级技术栈**为你写出“高端互联网简洁风”的完整单页原型代码。
+## ── 项目根目录结构 ──
+你可以让 **Claude Code** 或 **Cursor** 在你的 Next.js 项目中直接创建以下文件：
+`text
+my-apartment-wifi/
+├── app/
+│   ├── layout.tsx         # 全局高端深色主题配置
+│   └── page.tsx           # 核心：租客网络服务中心（包含AI诊断、高端套餐卡片、流畅动效）
+├── tailwind.config.js     # 自定义微光科技配色方案
+└── package.json           # 依赖配置（包含动画与图标库）
+```
+## ── 核心生产级代码实现 ──
+### 1. 依赖配置文件：package.json
+确保安装了目前前端最顶级的动画库 framer-motion 和精美图标库 lucide-react。
+```json
+{
+  "name": "apartment-wifi-center",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next": "15.1.0",
+    "framer-motion": "^11.15.0",
+    "lucide-react": "^0.468.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^2.5.5"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
+}
+```
+### 2. 界面核心层：app/page.tsx
+这段代码直接交付了全套视觉体验：**微光呼吸灯状态栏、智能AI套餐推荐（带高亮动效）、一屏快捷微信支付组件，以及一键式 AI 网络排障诊断器。**
+```tsx
+"use client";
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Wifi, Shield, Zap, Gamepad2, Radio, Check, RefreshCw, AlertTriangle, User, ChevronRight, CreditCard } from 'lucide-react';
+// 1. 模拟高端套餐数据结构
+const PLANS = [
+  { id: 'light', name: '轻享版', speed: '100M', price: 39, desc: '适合1-2人', scene: '网页浏览 / 高清刷剧', latency: '普通延迟', icon: Radio, color: 'from-gray-800 to-gray-900' },
+  { id: 'speed', name: '极速版', speed: '300M', price: 69, desc: '推荐 · 适合多人', scene: '4K多路直播 / 追剧', latency: '极低延迟', icon: Zap, color: 'from-cyan-950/40 to-blue-950/40', recommended: true },
+  { id: 'pro', name: '电竞狂飙版', speed: '1000M', price: 129, desc: '发烧友专属', scene: '全平台游戏大作 / 0丢包', latency: '竞技级延迟', icon: Gamepad2, color: 'from-purple-950/40 to-indigo-950/40' }
+];
+export default function TenantServiceCenter() {
+  // 状态机控制
+  const [selectedPlan, setSelectedPlan] = useState('speed');
+  const [selectedDuration, setSelectedDuration] = useState(1); // 1个月, 3个月, 12个月
+  const [isDiagnosing, setIsDiagnosing] = useState(false);
+  const [diagnoseResult, setDiagnoseResult] = useState<string | null>(null);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  // 基础租客Mock信息
+  const [userProfile, setUserProfile] = useState({
+    name: '陈先生', room: '天河星界公寓 B栋 403', expired: '2026-06-04'
+  });
+  // 触发AI网络诊断
+  const handleAiDiagnose = () => {
+    setIsDiagnosing(true);
+    setDiagnoseResult(null);
+    setTimeout(() => {
+      setIsDiagnosing(false);
+      setDiagnoseResult("【AI 哨兵诊断完成】：内网骨干链路正常，检测到您房间的子AP正遭受墙体严重阻挡。建议重启房间内弱电箱光猫，或将路由器移出金属箱。");
+    }, 2200);
+  };
+  return (
+    <div className="max-w-md mx-auto min-h-screen bg-[#0B0F19] text-[#E2E8F0] pb-24 font-sans selection:bg-cyan-500 selection:text-white">
+      {/* ── 顶部区域：Logo + 高端呼吸灯状态 ── */}
+      <header className="flex items-center justify-between py-6 px-4 border-b border-gray-800 bg-[#0F1524]/80 backdrop-blur-md sticky top-0 z-40">
+        <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+            <Wifi className="w-5 h-5 text-white" />
+          </div>
+          <span className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">寓网空间</span>
+        </div>
+        {/* 智能网络状态微光呼吸灯 */}
+        <div className="flex items-center space-x-2 bg-emerald-950/60 border border-emerald-800/60 px-3 py-1.5 rounded-full">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span className="text-xs text-emerald-400 font-medium tracking-wide">千兆网络接入正常</span>
+        </div>
+      </header>
+      <div className="p-4 space-y-6">
+        {/* ── 用户基础资产卡片 ── */}
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-gradient-to-br from-[#131B2E] to-[#0F1524] border border-gray-800 rounded-2xl p-5 shadow-xl relative overflow-hidden group"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-all duration-500"></div>
+          <div className="flex justify-between items-start">
+            <div>
+              <div className="text-gray-400 text-xs tracking-wider uppercase font-medium">{userProfile.room}</div>
+              <div className="text-xl font-bold mt-1 text-white flex items-center">
+                尊贵业主：{userProfile.name}
+                <User className="w-4 h-4 ml-2 text-cyan-400 cursor-pointer" onClick={() => setShowProfileModal(true)} />
+              </div>
+            </div>
+            <span className="bg-gray-800 border border-gray-700 text-gray-300 text-[11px] px-2.5 py-1 rounded-md font-mono">
+              PPPoE 节点已绑定
+            </span>
+          </div>
+          <div className="mt-6 pt-4 border-t border-gray-800/60 flex justify-between items-center">
+            <div>
+              <span className="text-xs text-gray-500 block">宽带服务到期倒计时</span>
+              <span className="text-sm font-semibold text-amber-400 mt-0.5 inline-block font-mono">2026年06月04日 (剩 12 天)</span>
+            </div>
+            <div className="text-right">
+              <span className="text-xs text-gray-500 block">当前尊享方案</span>
+              <span className="text-sm font-bold text-cyan-400 mt-0.5 inline-block">300Mbps 极速版</span>
+            </div>
+          </div>
+        </motion.div>
+        {/* ── AI 动态运营提示（极易拉高ARPU） ── */}
+        <motion.div 
+          whileHover={{ scale: 1.01 }}
+          className="bg-gradient-to-r from-blue-950/40 via-cyan-950/30 to-transparent border border-cyan-800/30 rounded-xl p-3.5 flex items-center space-x-3"
+        >
+          <div className="p-2 bg-cyan-500/10 rounded-lg text-cyan-400">
+            <Shield className="w-5 h-5 animate-pulse" />
+          </div>
+          <div className="flex-1 text-xs">
+            <span className="font-bold text-cyan-300">AI 智能分析：</span>
+            <span className="text-gray-400">检测到您房间近7天有多次深夜《王者荣耀》和海量大文件下载请求。</span>
+            <span className="text-cyan-400 font-semibold underline ml-1 cursor-pointer" onClick={() => setSelectedPlan('pro')}>
+              建议升档至 1000M 畅享纯净低延迟 ->
+            </span>
+          </div>
+        </motion.div>
+        {/* ── 中间核心区：高端互联网卡片式套餐选择 ── */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-bold tracking-widest text-gray-400 uppercase px-1">选择数字化网络基建方案</h3>
+          <div className="space-y-3">
+            {PLANS.map((plan) => {
+              const IconComponent = plan.icon;
+              const isSelected = selectedPlan === plan.id;
+              return (
+                <motion.div
+                  key={plan.id}
+                  layoutId={`plan-card-${plan.id}`}
+                  onClick={() => setSelectedPlan(plan.id)}
+                  className={`relative cursor-pointer rounded-2xl border p-5 transition-all duration-300 bg-gradient-to-br ${plan.color} ${
+                    isSelected ? 'border-cyan-500 shadow-lg shadow-cyan-500/10' : 'border-gray-800 hover:border-gray-700'
+                  }`}
+                >
+                  {plan.recommended && (
+                    <span className="absolute -top-2.5 right-6 bg-gradient-to-r from-cyan-500 to-blue-500 text-white text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow-md shadow-cyan-500/20">
+                      AI 最佳推荐
+                    </span>
+                  )}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div className={`p-2.5 rounded-xl ${isSelected ? 'bg-cyan-500 text-white' : 'bg-gray-800 text-gray-400'}`}>
+                        <IconComponent className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="font-bold text-base text-white flex items-center">
+                          {plan.name}
+                          <span className="ml-2 text-xs font-mono px-1.5 py-0.5 bg-gray-800/80 text-cyan-400 rounded-md border border-gray-700">
+                            {plan.speed}
+                          </span>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-1">{plan.desc} · {plan.scene}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xl font-black text-white font-mono">
+                        <span className="text-xs font-normal text-gray-400">¥</span>{plan.price}
+                      </div>
+                      <span className="text-[10px] text-gray-500 block mt-0.5">{plan.latency}</span>
+                    </div>
+                  </div>
+                  {/* 选中时的优雅对勾底标 */}
+                  {isSelected && (
+                    <motion.div layoutId="active-indicator" className="absolute bottom-2 right-2 text-cyan-400">
+                      <Check className="w-4 h-4 stroke-[3]" />
+                    </motion.div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+        {/* ── 时长选择横卡 ── */}
+        <div className="bg-[#0F1524] border border-gray-800 rounded-2xl p-4 space-y-3">
+          <div className="flex justify-between items-center px-1">
+            <span className="text-xs font-bold text-gray-400">购买服务周期</span>
+            <span className="text-xs text-amber-400 font-medium">✨ 年付直接加送 2 个月</span>
+          </div>
+          <div className="grid grid-cols-3 gap-2.5">
+            {[
+              { label: '月付', val: 1, discount: '原价' },
+              { label: '季付优惠', val: 3, discount: '省 ¥10' },
+              { label: '全年度特惠', val: 12, discount: '送2个月' }
+            ].map((d) => (
+              <button
+                key={d.val}
+                onClick={() => setSelectedDuration(d.val)}
+                className={`p-3 rounded-xl border text-center transition-all duration-200 flex flex-col items-center justify-center ${
+                  selectedDuration === d.val 
+                    ? 'bg-cyan-950/50 border-cyan-500 text-cyan-400' 
+                    : 'bg-gray-900/60 border-gray-800 text-gray-400 hover:border-gray-700'
+                }`}
+              >
+                <span className="text-xs font-bold">{d.label}</span>
+                <span className={`text-[10px] mt-0.5 font-mono ${selectedDuration === d.val ? 'text-cyan-300' : 'text-gray-500'}`}>{d.discount}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+        {/* ── 极简一键收银台 ── */}
+        <div className="pt-2">
+          <button className="w-full bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-bold py-4 px-6 rounded-2xl shadow-xl shadow-cyan-500/10 active:scale-[0.99] transition-transform duration-100 flex items-center justify-center space-x-2 text-base">
+            <CreditCard className="w-5 h-5" />
+            <span>拉起微信安全支付 </span>
+            <span className="font-mono ml-1">
+              ¥{ (PLANS.find(p => p.id === selectedPlan)?.price || 0) * selectedDuration }
+            </span>
+          </button>
+          <p className="text-center text-[10px] text-gray-500 mt-2.5">点击支付即代表您已同意《寓网空间数字化接入服务协议》</p>
+        </div>
+        {/* ── 大厂级：AI 智能自愈自诊断报修组件 ── */}
+        <div className="bg-[#0F1524] border border-gray-800 rounded-2xl p-5 space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-glow animate-pulse"></div>
+              <h4 className="text-sm font-bold text-white">AI 网络超脑自主排障</h4>
+            </div>
+            <span className="text-xs text-gray-500">免人工排队</span>
+          </div>
+          <p className="text-xs text-gray-400 leading-relaxed">
+            遭遇断网、打游戏丢包、Wi-Fi无信号？点击下方按钮，云端 AI 将直接渗透机房下发探测包，在 3 秒内对您的房号线路进行物理层全链路诊断。
+          </p>
+          <button 
+            onClick={handleAiDiagnose}
+            disabled={isDiagnosing}
+            className="w-full bg-gray-900 hover:bg-gray-800 border border-gray-700/80 text-gray-200 font-semibold py-2.5 px-4 rounded-xl text-xs transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-50"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${isDiagnosing ? 'animate-spin' : ''}`} />
+            <span>{isDiagnosing ? '云端分布式诊断中...' : '启动 AI 极速链路探测'}</span>
+          </button>
+          <AnimatePresence>
+            {diagnoseResult && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="bg-cyan-950/30 border border-cyan-800/40 rounded-xl p-3 flex items-start space-x-2.5"
+              >
+                <AlertTriangle className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                <span className="text-xs text-cyan-200 leading-relaxed font-medium">{diagnoseResult}</span>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+      {/* ── 底部数字生活入口预留 Tabbar ── */}
+      <footer className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-[#0F1524]/90 backdrop-blur-lg border-t border-gray-800 grid grid-cols-4 py-2.5 text-center text-xs text-gray-400 z-40">
+        <div className="text-cyan-400 flex flex-col items-center justify-center cursor-pointer">
+          <Wifi className="w-5 h-5 mb-0.5" />
+          <span className="text-[10px] font-bold">网络中心</span>
+        </div>
+        <div className="hover:text-gray-200 flex flex-col items-center justify-center opacity-40 cursor-not-allowed">
+          <div className="w-5 h-5 mb-0.5 border border-dashed border-gray-500 rounded flex items-center justify-center text-[9px]">🔑</div>
+          <span className="text-[10px]">智能门禁</span>
+        </div>
+        <div className="hover:text-gray-200 flex flex-col items-center justify-center opacity-40 cursor-not-allowed">
+          <div className="w-5 h-5 mb-0.5 border border-dashed border-gray-500 rounded flex items-center justify-center text-[9px]">⚡</div>
+          <span className="text-[10px]">共享充电</span>
+        </div>
+        <div className="hover:text-gray-200 flex flex-col items-center justify-center cursor-pointer" onClick={() => alert('已呼叫AI管家，正在企业微信中为您接通专属商务人员...')}>
+          <User className="w-5 h-5 mb-0.5" />
+          <span className="text-[10px]">专属管家</span>
+        </div>
+      </footer>
+    </div>
+  );
+}
+```
+### 3. 配色扩展配置：tailwind.config.js
+将界面色彩收拢在高级的暗黑和青色系中，确保大厂级的统一视觉纯度。
+```javascript
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        gray: {
+          900: '#121620',
+          950: '#0B0F19',
+        }
+      }
+    },
+  },
+  plugins: [],
+}
+```
+## ── 💡 交付与执行指南 ──
+你可以直接将这段高质量的 UI 代码包复制给 **Claude Code**。以下是全自动构建并本地预览的完整终端命令：
+```bash
+# 1. 告诉 Claude Code 创建项目
+claude> "请在本地为我创建一个基于这个 Next.js 代码包的完整单页应用，并配好 Tailwind CSS 依赖环境。"
+# 2. 当 Claude 写入完成后，在本地运行起来：
+npm install
+npm run dev
+```
+启动后，访问本地端口就能在浏览器中直观调试和预览这个极为惊艳的**“高端租客网络服务中心”**。这个界面只要拿给公寓的投资方或者二房东看，他们对你团队实力的信任感瞬间就会爆棚，对你未来大面积“拿楼”和切入“门禁、水电、物联网充电桩”等数字化资产运营会具有无可估量的商务推动力。

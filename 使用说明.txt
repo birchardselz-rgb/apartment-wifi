@@ -1,0 +1,29 @@
+寓网数字空间 — 本地开发/浏览说明
+
+===== 方式 1：直接浏览静态页面（最简单）=====
+打开 D:\apartment-wifi\dist\index.html
+注意：部分功能需要 HTTP 服务才能正常加载 JS 资源
+
+===== 方式 2：启动本地 HTTP 服务（推荐）=====
+双击运行「启动本地服务.bat」
+或命令行执行：
+  cd D:\apartment-wifi
+  npx serve dist --port 8080
+
+然后浏览器打开：http://localhost:8080
+
+===== 方式 3：开发模式（修改代码时用）=====
+  cd D:\apartment-wifi
+  npm run dev
+
+然后浏览器打开：http://localhost:3000
+
+===== 重新打包 =====
+修改代码后，执行：
+  cd D:\apartment-wifi
+  npm run build
+生成的 dist 文件夹即为可部署的静态网站
+
+===== 数据导出 =====
+在网站后台数据端 → 导出 Excel
+文件保存到 D:\apartment-wifi\数据\ 文件夹
