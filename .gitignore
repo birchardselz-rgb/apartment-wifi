@@ -1,0 +1,6 @@
+node_modules
+.next
+dist
+数据
+.DS_Store
+*.log
