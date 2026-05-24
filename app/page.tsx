@@ -22,7 +22,7 @@ export default function HomePage() {
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-xl shadow-cyan-500/20 mb-4">
           <Wifi className="w-9 h-9 text-white" />
         </motion.div>
-        <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">寓网数字空间</h1>
+        <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">达维斯网络</h1>
         <p className="text-gray-500 text-sm mt-1">全链路数字化运营管理平台</p>
       </header>
 
@@ -53,7 +53,7 @@ export default function HomePage() {
       </div>
 
       {/* Footer Info */}
-      <p className="text-center text-[10px] text-gray-700 mt-8 px-4">寓网数字空间 v2.0 · 微信端管理平台 · 数据仅供演示</p>
+      <p className="text-center text-[10px] text-gray-700 mt-8 px-4">达维斯网络 v2.0 · 微信端管理平台 · 数据仅供演示</p>
     </div>
   );
 }

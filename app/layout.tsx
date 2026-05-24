@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: '寓网数字空间 — 宽带服务中心',
+  title: '达维斯网络 — 宽带服务中心',
   description: '公寓千兆宽带 · AI 智能网络服务 · 全链路数字化运营',
   manifest: '/manifest.json',
 };

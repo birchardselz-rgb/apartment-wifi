@@ -156,7 +156,7 @@ export default function SystemPage() {
           </button>
           <div className="bg-[#131B2E] border border-gray-800 rounded-xl p-4 space-y-4">
             <div className="flex justify-between items-center">
-              <div><div className="text-white text-sm font-bold">平台名称</div><div className="text-gray-500 text-xs">寓网数字空间</div></div>
+              <div><div className="text-white text-sm font-bold">平台名称</div><div className="text-gray-500 text-xs">达维斯网络</div></div>
               <span className="text-[10px] text-gray-600">v2.0</span>
             </div>
             <div className="border-t border-gray-800/60 pt-4">

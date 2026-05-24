@@ -119,7 +119,7 @@ export default function ClientPage() {
         </button>
         <div>
           <h1 className="font-bold text-white text-base">宽带办理</h1>
-          <p className="text-[10px] text-gray-500">寓网数字空间 · 千兆光纤到户</p>
+          <p className="text-[10px] text-gray-500">达维斯网络 · 千兆光纤到户</p>
         </div>
         {/* Steps */}
         <div className="ml-auto flex items-center space-x-1.5">
